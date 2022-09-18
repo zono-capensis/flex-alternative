@@ -1,5 +1,9 @@
 import string
-from Stack import Stack
+import sys
+sys.path.append('../data')
+
+from structures import Stack
+
 
 def infix_to_postfix(regex, alphabet, operations):
     operation_order = Stack();
