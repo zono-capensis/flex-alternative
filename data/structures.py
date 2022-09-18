@@ -1,3 +1,23 @@
+class Finite_automata:
+    def __init__(self, alphabet, states, initial_state, accepting_states):
+        self.alphabet = alphabet
+        self.states = states
+        self.initial_state = initial_state
+        self.accepting_states = accepting_states
+        self.transitions = None
+
+    def give_info(self):
+        print("----------------- Automata -----------------")
+        print("The alphabet work with was: %s".format(self.alphabet))
+        print("The states of the automata was: %s".format(self.states))
+        print("The initial states is: %s".format(self.initial_state))
+        print("The accepting_states are: %s".format(self.accepting_states))
+        print("The transition function is given by:")
+        print(self.transitions)
+
+    def copy_transitions(self, transitions):
+        self.transitions = transitions
+
 class Node:
     def __init__(self, value):
         self.value = value
