@@ -1,4 +1,3 @@
-import string
 import sys
 sys.path.append('../data')
 
@@ -30,14 +29,14 @@ def has_higher_precedence(first_operator, second_operator):
     return (first_operator < second_operator)
 
 #Change alphabet
-def add_concatenation_operation(regex):
+def add_concatenation_operation(regex, alphabet):
     temp_regex = list(regex)
     new_regex = ""
     for i in range(len(temp_regex)-1):
-        if (temp_regex[i] in string.ascii_lowercase and (temp_regex[i+1] in string.ascii_lowercase or temp_regex[i+1] == '(')):
+        if (temp_regex[i] in alphabet and (temp_regex[i+1] in alphabet or temp_regex[i+1] == '(')):
             new_regex = new_regex + temp_regex[i] + ".";
 
-        elif ((temp_regex[i]==')' or temp_regex[i]=='*') and temp_regex[i+1] in string.ascii_lowercase):
+        elif ((temp_regex[i]==')' or temp_regex[i]=='*') and temp_regex[i+1] in alphabet):
             new_regex = new_regex + temp_regex[i] + ".";
         else:
             new_regex += temp_regex[i]
