@@ -1,5 +1,6 @@
 import string
 import sys
+import os.path
 sys.path.append('../data')
 
 from structures import Finite_automata
@@ -8,11 +9,10 @@ from structures import Stack
 from functions import infix_to_postfix
 from functions import add_concatenation_operation
 
-def main():
+def main(regex):
     alphabet = string.ascii_lowercase;
     operations = "|.*";
 
-    regex = input("Type your regex: ");
     regex = add_concatenation_operation(regex, alphabet)
     postfix_regex = infix_to_postfix(regex, alphabet, operations)
 
@@ -82,4 +82,6 @@ def main():
     print(transitions)
 
 if __name__=="__main__":
-    main()
+    with open('../data/regex.txt') as regex_file:
+        while(regex:=regex_file.readline().rsplit()):
+            main(regex[0])
