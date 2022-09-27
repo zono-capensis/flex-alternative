@@ -1,10 +1,12 @@
+from collections import deque
+from pickle import NONE
 class Finite_automata:
-    def __init__(self, alphabet, states, initial_state, accepting_states):
+    def __init__(self, alphabet, states, initial_state, accepting_states, transitions = None):
         self.alphabet = alphabet
         self.states = states
         self.initial_state = initial_state
         self.accepting_states = accepting_states
-        self.transitions = None
+        self.transitions = transitions
 
     def give_info(self):
         print("----------------- Automata -----------------")
@@ -26,34 +28,37 @@ class Node:
         return self.value
 
 class Stack:
-    def __init__(self):
-        self.head = Node("Head")
-        self.top = 0
+    def __init__(self, initial = None):
+        if initial == None:
+            self.items = deque()
+        else:
+            self.items = deque(initial)
+    def __len__(self):
+        return len(self.items)
+    def __contains__(self, item):
+        return item in self._items
+    def pop(self):
+        try:
+            return self.items.popleft()
+        except IndexError:
+            raise IndexError("dequeue from an empty queue") from None
+    def push(self, value):
+        if not hasattr(value, "__len__"):
+            self.items.append(value)
+        else:
+            for elm in value:
+                self.items.append(elm)
     def get_size(self):
-        return self.top
+        return self.__len__();
     def is_empty(self):
-        return self.top == 0
+        return self.__len__() == 0
     def peek(self):
         if self.is_empty():
             raise Exception("It's empty");
-        return self.head.next.get_value();
-    def pop(self):
-        if self.is_empty():
-            raise Exception("It's empty");
-        current_node = self.head.next;
-        self.head.next = self.head.next.next;
-        self.top -= 1
-        return current_node.get_value();
-    def push(self, value):
-        new_node = Node(value)
-        new_node.next = self.head.next;
-        self.head.next = new_node;
-        self.top+= 1;
+        return self.items[len(self.items) - 1];
     def __str__(self):
-        current_node = self.head.next;
         to_print = "["
-        while current_node:
-            to_print += (str(current_node.get_value()) + ",");
-            current_node = current_node.next;
+        for elm in self.items:
+            to_print += str(elm) + ", "
         to_print += "]"
         return to_print;
