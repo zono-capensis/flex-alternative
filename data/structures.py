@@ -19,6 +19,13 @@ class Finite_automata:
 
     def copy_transitions(self, transitions):
         self.transitions = transitions
+    def __str__(self) -> str:
+        return ("Alphabet: " + str(self.alphabet) + "\n" +
+                "States: " + str(self.states) + "\n" +
+                "Initial State: " + str(self.initial_state) + "\n" +
+                "Accepting States: " + str(self.accepting_states) + "\n" +
+                "Transition Function: " + str(self.transitions))
+
 
 class Node:
     def __init__(self, value):
