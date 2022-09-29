@@ -1,7 +1,7 @@
 import string
 import sys
 import os.path
-sys.path.append('../data')
+sys.path.insert(0, os.path.abspath('../data'))
 
 from structures import Finite_automata
 from structures import Node
