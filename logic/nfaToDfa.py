@@ -1,4 +1,5 @@
-from inspect import stack
+import copy
+
 import sys
 import os.path
 sys.path.insert(0, os.path.abspath('../data'))
@@ -41,8 +42,28 @@ class SubsetConstruction:
             if binRep[i] == "1":
                 setRep.append(i)
         return setRep
-    def prettyStates(self, list):
-        pass
+    def prettyStates(self, dfa):
+        newKeys = {}
+        index = 0
+        for state in dfa.transitions:
+            dfa.states.index(state)
+            newKeys[state] = "q" + str(index)
+            index += 1
+        for i in range(len(dfa.states)):
+            dfa.states[i] = newKeys[dfa.states[i]]
+        dfa.initial_state = newKeys[dfa.initial_state]
+        for i in range(len(dfa.accepting_states)):
+            dfa.accepting_states[i] = newKeys[dfa.accepting_states[i]]
+        newTransitions = {}
+        for rule in dfa.transitions:
+            newSubDic = {}
+            for subrule in dfa.transitions[rule]:
+                newTrans = []
+                for state in dfa.transitions[rule][subrule]:
+                    newTrans.append(newKeys[state])
+                newSubDic[subrule] = newTrans
+            newTransitions[newKeys[rule]] = newSubDic
+        return Finite_automata(self.nfa.alphabet, dfa.states, dfa.initial_state, dfa.accepting_states, newTransitions)
     def isAccepting(self, list):
         for state in list:
             if state in self.nfa.accepting_states:
@@ -71,4 +92,4 @@ class SubsetConstruction:
                 if not a in dTran[dStates[TN]]:
                     dTran[dStates[TN]][a]=[]
                 dTran[dStates[TN]][a].append(self.setAsInt(U))
-        return Finite_automata(self.nfa.alphabet, dStates, startState, acceptingStates, dTran)
+        return self.prettyStates(Finite_automata(self.nfa.alphabet, dStates, startState, acceptingStates, dTran))
