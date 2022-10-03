@@ -77,7 +77,7 @@ class SubsetConstruction:
         unmarked.push(0)
         dTran = {}
         while len(unmarked) > 0:
-            TN = unmarked.pop()
+            TN = unmarked.popleft()
             T = self.intAsSet(dStates[TN])
             for a in self.nfa.alphabet:
                 U = self.calculeEpsClosure(self.move(T, a))
