@@ -34,11 +34,8 @@ def infix_to_postfix(regex, alphabet, operations):
             operation_order.push('(')
         elif regex[i]==')':
             while (not operation_order.is_empty() and operation_order.peek()!='('):
-                print('Current string: ' + post_string)
                 post_string += operation_order.pop()
             operation_order.pop()
-        print(operation_order)
-        print(post_string)
 
     while (not operation_order.is_empty()):
         post_string += operation_order.pop()
