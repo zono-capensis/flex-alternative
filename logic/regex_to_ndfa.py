@@ -8,13 +8,19 @@ from structures import Node
 from structures import Stack
 from functions import infix_to_postfix
 from functions import add_concatenation_operation
+from functions import remove_hyphens
 
 def main(regex):
-    alphabet = string.ascii_lowercase;
+    alphabet = string.ascii_lowercase + string.digits + '_';
     operations = "|.*";
-
+    
+    print(regex)
+    regex = remove_hyphens(regex)
+    print(regex)
     regex = add_concatenation_operation(regex, alphabet)
-    postfix_regex = infix_to_postfix(regex, alphabet, operations)
+    print(regex)
+    postfix_regex = infix_to_postfix(regex, alphabet, operations, '-_')
+    print(postfix_regex)
 
     diff_symbols = []
     for char in postfix_regex:
@@ -79,9 +85,9 @@ def main(regex):
     nfda = Finite_automata(alphabet, states, "".join(initial_states), accepting_states)
     nfda.copy_transitions(transitions)
 
-    print(transitions)
+    #print(transitions)
 
 if __name__=="__main__":
     with open('../data/regex.txt') as regex_file:
-        while(regex:=regex_file.readline().rsplit()):
-            main(regex[0])
+        while(regex:=regex_file.readline().rstrip()):
+            main(regex)
