@@ -14,12 +14,10 @@ def main(regex):
     alphabet = string.ascii_lowercase + string.digits + '_';
     operations = "|.*";
     
-    print(regex)
     regex = remove_hyphens(regex)
-    print(regex)
     regex = add_concatenation_operation(regex, alphabet)
     print(regex)
-    postfix_regex = infix_to_postfix(regex, alphabet, operations, '-_')
+    postfix_regex = infix_to_postfix(regex, alphabet, operations)
     print(postfix_regex)
 
     diff_symbols = []
