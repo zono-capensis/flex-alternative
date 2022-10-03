@@ -46,6 +46,11 @@ class Stack:
         return item in self._items
     def pop(self):
         try:
+            return self.items.pop()
+        except IndexError:
+            raise IndexError("dequeue from an empty queue") from None
+    def popleft(self):
+        try:
             return self.items.popleft()
         except IndexError:
             raise IndexError("dequeue from an empty queue") from None
