@@ -18,7 +18,7 @@ def add_concatenation_operation(regex, alphabet):
     return new_regex
 
 def has_higher_precedence(first_operator, second_operator):
-    return (first_operator < second_operator)
+    return (first_operator <= second_operator)
 
 def infix_to_postfix(regex, alphabet, operations):
     operation_order = Stack();

@@ -11,7 +11,7 @@ from functions import add_concatenation_operation
 from functions import remove_hyphens
 
 def main(regex):
-    alphabet = string.ascii_lowercase + string.digits + '_';
+    alphabet = string.ascii_uppercase + string.ascii_lowercase + string.digits + '_ =';
     operations = "|.*";
     
     regex = remove_hyphens(regex)
@@ -83,9 +83,9 @@ def main(regex):
     nfda = Finite_automata(alphabet, states, "".join(initial_states), accepting_states)
     nfda.copy_transitions(transitions)
 
-    #print(transitions)
+    print(transitions)
 
 if __name__=="__main__":
     with open('../data/regex.txt') as regex_file:
-        while(regex:=regex_file.readline().rstrip()):
-            main(regex)
+        while(regex:=regex_file.readline().rsplit(' ')):
+            main(regex[2])
